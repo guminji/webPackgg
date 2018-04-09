@@ -1,1 +1,37 @@
 //测试webpack
+1.webpack.config.json
+通过webpack.config.json配置文件进行打包的配置
+entry 为打包文件的入口
+可以多个文件
+entry:
+{
+    //app1,app2作为文件入口的key 后续会在output中最为name被引用
+    'app1':'app1.js',
+    'build/demo/app2':'app2.js' //key中加入目录会打包到key中指定的文件目录下面
+}
+output{
+    path:'./build',
+    name:'../[name].bundle.js', //这里的[name]是entry入口中的key
+}
+
+2 Html-Webpack-Plugin
+服务端渲染内容的插件 类似于express的render engine
+new HtmlWebpackPlugin({
+            title: "This is the app1",
+            filename: "./index.html",
+            template: "./assest/html/index.html",
+            inject: "body",
+            favicon: "",
+            minify: {
+                caseSensitive: false,
+                collapseBooleanAttributes: true,
+                collapseWhitespace: true
+            },
+            hash: true,
+            cache: true,
+            showErrors: true,
+            chunks: ['build/app1/app1'],
+            chunksSortMode: "auto",
+            excludeChunks: "",
+            xhtml: false
+    }),
