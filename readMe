@@ -1,4 +1,5 @@
 //测试webpack
+入口文件为根目录下的wepack下的bootstrap.js
 1.webpack.config.json
 通过webpack.config.json配置文件进行打包的配置
 entry 为打包文件的入口

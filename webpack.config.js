@@ -30,44 +30,44 @@ module.exports = {
         ]
     },
     plugins: [
-        new HtmlWebpackPlugin({
-            title: "This is the app1",
-            filename: "./index.html",
-            template: "./assest/html/index.html",
-            inject: "body",
-            favicon: "",
-            minify: {
-                caseSensitive: false,
-                collapseBooleanAttributes: true,
-                collapseWhitespace: true
-            },
-            hash: true,
-            cache: true,
-            showErrors: true,
-            chunks: ['build/app1/app1'],
-            chunksSortMode: "auto",
-            excludeChunks: "",
-            xhtml: false
-        }),
-        new HtmlWebpackPlugin({
-            title: "This is the app2",
-            filename: "./index2.html",
-            template: "./assest/html/index.html",
-            inject: "body",
-            favicon: "",
-            minify: {
-                caseSensitive: false,
-                collapseBooleanAttributes: true,
-                collapseWhitespace: true
-            },
-            hash: true,
-            cache: true,
-            showErrors: true,
-            chunks: ['build/app2/app2'],
-            chunksSortMode: "auto",
-            excludeChunks: "",
-            xhtml: false
-        }),
+        //new HtmlWebpackPlugin({
+        //    title: "This is the app1",
+        //    filename: "./index.html",
+        //    template: "./assest/html/index.html",
+        //    inject: "body",
+        //    favicon: "",
+        //    minify: {
+        //        caseSensitive: false,
+        //        collapseBooleanAttributes: true,
+        //        collapseWhitespace: true
+        //    },
+        //    hash: true,
+        //    cache: true,
+        //    showErrors: true,
+        //    chunks: ['build/app1/app1'],
+        //    chunksSortMode: "auto",
+        //    excludeChunks: "",
+        //    xhtml: false
+        //}),
+        //new HtmlWebpackPlugin({
+        //    title: "This is the app2",
+        //    filename: "./index2.html",
+        //    template: "./assest/html/index.html",
+        //    inject: "body",
+        //    favicon: "",
+        //    minify: {
+        //        caseSensitive: false,
+        //        collapseBooleanAttributes: true,
+        //        collapseWhitespace: true
+        //    },
+        //    hash: true,
+        //    cache: true,
+        //    showErrors: true,
+        //    chunks: ['build/app2/app2'],
+        //    chunksSortMode: "auto",
+        //    excludeChunks: "",
+        //    xhtml: false
+        //}),
 
     ]
 }
