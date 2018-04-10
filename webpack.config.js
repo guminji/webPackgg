@@ -2,10 +2,9 @@
  * Created by guminji on 2018/4/3.
  */
 var path = require('path');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-module.exports = {
+var webPackConfig = {
     mode: 'development',
-    entry: {
+        entry: {
         'build/app1/app1':'./assest/js/scence/index.js',
         'build/app2/app2':'./assest/js/bootstrap.js'
     },
@@ -31,25 +30,6 @@ module.exports = {
     },
     plugins: [
         //new HtmlWebpackPlugin({
-        //    title: "This is the app1",
-        //    filename: "./index.html",
-        //    template: "./assest/html/index.html",
-        //    inject: "body",
-        //    favicon: "",
-        //    minify: {
-        //        caseSensitive: false,
-        //        collapseBooleanAttributes: true,
-        //        collapseWhitespace: true
-        //    },
-        //    hash: true,
-        //    cache: true,
-        //    showErrors: true,
-        //    chunks: ['build/app1/app1'],
-        //    chunksSortMode: "auto",
-        //    excludeChunks: "",
-        //    xhtml: false
-        //}),
-        //new HtmlWebpackPlugin({
         //    title: "This is the app2",
         //    filename: "./index2.html",
         //    template: "./assest/html/index.html",
@@ -69,5 +49,64 @@ module.exports = {
         //    xhtml: false
         //}),
 
-    ]
+    ],
+    devServer: {
+        contentBase: path.join(__dirname, "build"),
+        compress: true,
+        hot:true,
+        port: 3000
+    },
+    //devServer:{
+    //    watchOptions: {
+    //        poll: true
+    //    }
+    //},
+    //watchOptions:{
+    //    aggregateTimeout: 300,//防止重复按键，500毫米内算按键一次
+    //    poll: 1000,//监测修改的时间(ms)
+    //}
 }
+var HtmlWebpackPlugin = require('html-webpack-plugin');
+//**获取配置
+var glob = require('glob');
+//var webPackConfig = require('../webpack.config.js');
+var webpack = require('webpack');
+var entryFiles = glob.sync('./assest/js/scence/*.js');
+var Entries = {
+
+};
+//检索入口文件 配置新的入口文件
+entryFiles.forEach((filePath,index)=>{
+    var filePaths = filePath.split('/');
+    fileName = filePaths[filePaths.length-1];
+    fileName = fileName.split('.js').join('');
+    Entries[fileName] = filePath;
+})
+webPackConfig.entry = Entries;
+//配置新的HtmlWebpackPlugin
+entryFiles.forEach((filePath,index)=>{
+    var filePaths = filePath.split('/');
+    fileName = filePaths[filePaths.length-1];
+    fileName = fileName.split('.js').join('');
+    var webpackPlugins =new HtmlWebpackPlugin({
+        title: fileName,
+        filename: "../html/"+fileName+".html",
+        template: "./assest/html/index.html",
+        inject: "body",
+        favicon: "",
+        //minify: {  //压缩
+        //    caseSensitive: false,
+        //    collapseBooleanAttributes: true,
+        //    collapseWhitespace: true
+        //},
+        hash: true,
+        cache: true,
+        showErrors: true,
+        chunks: [fileName],
+        chunksSortMode: "auto",
+        excludeChunks: "",
+        xhtml: false
+    })
+    webPackConfig.plugins.push(webpackPlugins);
+})
+module.exports = webPackConfig;

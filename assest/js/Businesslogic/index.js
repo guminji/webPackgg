@@ -5,7 +5,7 @@ var Vue = require('../lib/vue.js');
 var app = new Vue({
     el: '#Vue_index',
     data: {
-        message: 'Hello Vue!'
+        message: 'Hell Vdsud!'
     }
 })
 module.exports ={

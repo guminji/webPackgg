@@ -6,6 +6,7 @@ var webPackConfig = require('../webpack.config.js');
 var webpack = require('webpack');
 var entryFiles = glob.sync('./assest/js/scence/*.js');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+var webpackDevServer = require('webpack-dev-server');
 var Entries = {
 
 };
@@ -45,7 +46,7 @@ entryFiles.forEach((filePath,index)=>{
 })
 console.log(Entries);
 console.log(webPackConfig);
-webpack(webPackConfig,(err, stats) => {
+let compiler = webpack(webPackConfig,(err, stats) => {
     if (err || stats.hasErrors()) {
         console.log('编译出错了'+err);
         // Handle errors here
@@ -53,5 +54,19 @@ webpack(webPackConfig,(err, stats) => {
     }
     // Done processing
 });
+const server = new webpackDevServer(compiler,{
+
+});
+
+server.listen(3000);
+//compiler.watch({
+//    /* watchOptions */
+//    //aggregateTimeout: 300,
+//    //poll: 1000
+//}, (err, stats) => {
+//    // Print watch/build result here...
+//    console.log(stats);
+//});
+
 
 
