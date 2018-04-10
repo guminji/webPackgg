@@ -14,7 +14,7 @@ module.exports = {
     //entry: ['./assest/js/bootstrap.js','./assest/js/modules/second.js'],//入口文件
     devtool: 'source-map',//调试工具 能够在源文件上面打断点 报错信息更加明确
     output: {
-        path: path.resolve(__dirname, './build'),
+        path: path.resolve(__dirname, './build/js'),
         filename: '[name].bundle.js'
     },
     module: {

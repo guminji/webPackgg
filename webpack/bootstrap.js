@@ -24,15 +24,15 @@ entryFiles.forEach((filePath,index)=>{
     fileName = fileName.split('.js').join('');
     var webpackPlugins =new HtmlWebpackPlugin({
         title: fileName,
-        filename: "./"+fileName+".html",
+        filename: "../html/"+fileName+".html",
         template: "./assest/html/index.html",
         inject: "body",
         favicon: "",
-        minify: {
-            caseSensitive: false,
-            collapseBooleanAttributes: true,
-            collapseWhitespace: true
-        },
+        //minify: {  //压缩
+        //    caseSensitive: false,
+        //    collapseBooleanAttributes: true,
+        //    collapseWhitespace: true
+        //},
         hash: true,
         cache: true,
         showErrors: true,
