@@ -1,6 +1,7 @@
 /**
  * Created by guminji on 2018/4/3.
  */
+var webpack = require('webpack');
 var path = require('path');
 var webPackConfig = {
     mode: 'development',
@@ -13,8 +14,10 @@ var webPackConfig = {
     //entry: ['./assest/js/bootstrap.js','./assest/js/modules/second.js'],//入口文件
     devtool: 'source-map',//调试工具 能够在源文件上面打断点 报错信息更加明确
     output: {
-        path: path.resolve(__dirname, './build/js'),
-        filename: '[name].bundle.js'
+        path: path.resolve(__dirname, './dist/js'),
+        filename: '[name].bundle.js',
+        //publicPath:'./dist'
+        //publicPath:'http://localhost:3000/js'
     },
     module: {
         rules: [
@@ -29,48 +32,25 @@ var webPackConfig = {
         ]
     },
     plugins: [
-        //new HtmlWebpackPlugin({
-        //    title: "This is the app2",
-        //    filename: "./index2.html",
-        //    template: "./assest/html/index.html",
-        //    inject: "body",
-        //    favicon: "",
-        //    minify: {
-        //        caseSensitive: false,
-        //        collapseBooleanAttributes: true,
-        //        collapseWhitespace: true
-        //    },
-        //    hash: true,
-        //    cache: true,
-        //    showErrors: true,
-        //    chunks: ['build/app2/app2'],
-        //    chunksSortMode: "auto",
-        //    excludeChunks: "",
-        //    xhtml: false
-        //}),
+        new webpack.HotModuleReplacementPlugin()
 
     ],
     devServer: {
-        contentBase: path.join(__dirname, "build"),
-        compress: true,
-        hot:true,
-        port: 3000
+        contentBase: path.resolve(__dirname, "./dist"),
+        //host: 'localhost',
+        port:3000,
+        //disableHostCheck: true,
+        //historyApiFallback: true,
+        //noInfo: true,
+        //overlay: true,
+        publicPath:'http://localhost:3000/js',//指向dev webserver中内存中静态文件地址 html中的src在这里改变 要不指向的output中的生成的静态文件的地址 无法检测到更新
+        //hot:true
     },
-    //devServer:{
-    //    watchOptions: {
-    //        poll: true
-    //    }
-    //},
-    //watchOptions:{
-    //    aggregateTimeout: 300,//防止重复按键，500毫米内算按键一次
-    //    poll: 1000,//监测修改的时间(ms)
-    //}
 }
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 //**获取配置
 var glob = require('glob');
 //var webPackConfig = require('../webpack.config.js');
-var webpack = require('webpack');
 var entryFiles = glob.sync('./assest/js/scence/*.js');
 var Entries = {
 
@@ -80,7 +60,7 @@ entryFiles.forEach((filePath,index)=>{
     var filePaths = filePath.split('/');
     fileName = filePaths[filePaths.length-1];
     fileName = fileName.split('.js').join('');
-    Entries[fileName] = filePath;
+    Entries[fileName] = ['webpack-dev-server/client?http://localhost:3000',filePath];
 })
 webPackConfig.entry = Entries;
 //配置新的HtmlWebpackPlugin
@@ -90,22 +70,23 @@ entryFiles.forEach((filePath,index)=>{
     fileName = fileName.split('.js').join('');
     var webpackPlugins =new HtmlWebpackPlugin({
         title: fileName,
-        filename: "../html/"+fileName+".html",
+        filename: '../html/'+fileName+".html",
+        chunks: [fileName],
         template: "./assest/html/index.html",
-        inject: "body",
-        favicon: "",
+        //inject: "body",
+        //favicon: "",
         //minify: {  //压缩
         //    caseSensitive: false,
         //    collapseBooleanAttributes: true,
         //    collapseWhitespace: true
         //},
-        hash: true,
-        cache: true,
-        showErrors: true,
-        chunks: [fileName],
-        chunksSortMode: "auto",
-        excludeChunks: "",
-        xhtml: false
+        //hash: true,
+        //cache: false,
+        //showErrors: true,
+        //chunks: [fileName],
+        //chunksSortMode: "auto",
+        //excludeChunks: "",
+        //xhtml: false
     })
     webPackConfig.plugins.push(webpackPlugins);
 })

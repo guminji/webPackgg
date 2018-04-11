@@ -1,10 +1,12 @@
 {
   "name": "webpack-test",
   "version": "0.0.1",
-  "scripts":{
-    "build-server":"webpack-dev-server --config webpack.config.js"
+  "scripts": {
+    "build-server": "webpack-dev-server --config webpack.config.js --hot",
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot"
   },
   "dependencies": {
+    "cross-env": "^5.1.4",
     "css-loader": "^0.28.11",
     "html-webpack-plugin": "^3.2.0",
     "style-loader": "^0.20.3",

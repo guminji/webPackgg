@@ -5,9 +5,9 @@ var Vue = require('../lib/vue.js');
 var app = new Vue({
     el: '#Vue_index',
     data: {
-        message: 'Hell Vdsud!'
+        message: 'Hell assssszsgang'
     }
 })
-module.exports ={
+module.exports = {
 
 }
